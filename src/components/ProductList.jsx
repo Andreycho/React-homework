@@ -3,24 +3,40 @@ import ProductCard from "./ProductCard";
 
 const ProductList = () => {
   const [productList, setProductList] = useState([]);
+  const [sortOption, setSortOption] = useState('price-low-to-high');
+  
 
   useEffect(() => {
 
     const fetchData = async () => {
       const result = await fetch(
-        "https://jsonplaceholder.typicode.com/photos?_start=0&_limit=10"
+        "https://dummyjson.com/products"
       );
 
       if (!result.ok) return;
 
       const data = await result.json();
 
-      setProductList(data);
+      setProductList(data.products);
     };
 
     fetchData();
 
   }, []);
+
+  function handleSortChange(event) {
+    setSortOption(event.target.value);
+    switch (event.target.value) {
+      case 'price-low-to-high':
+        setProductList([...productList].sort((a, b) => a.price - b.price));
+        break;
+      case 'price-high-to-low':
+        setProductList([...productList].sort((a, b) => b.price - a.price));
+        break;
+      default:
+        setProductList(productList);
+    }
+  }
 
   return (
     <>
@@ -40,7 +56,11 @@ const ProductList = () => {
           <a className="font-avenir">Design Style</a>
         </li>
         <li>
-          <a className="font-avenir">Sort</a>
+        <label htmlFor="sort-selec font-avenir">Sort by:</label>
+        <select id="sort-select" value={sortOption} onChange={handleSortChange}>
+          <option value="price-low-to-high">Price: Low to High</option>
+          <option value="price-high-to-low">Price: High to Low</option>
+        </select>
         </li>
       </ul>
     </div>
@@ -49,7 +69,8 @@ const ProductList = () => {
           <ProductCard
             key={product.id}
             title={product.title}
-            url={product.url}
+            price={product.price}
+            url={product.images[0]}
           />
         ))}
       </div>

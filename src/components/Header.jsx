@@ -23,7 +23,7 @@ const Header = () => {
                                 <span className="font-bold">Customer Rate Us 4.7/5</span>
                             </span>
                     </div>
-                    <div class="my-3 px-2">
+                    <div className="my-3 px-2">
                             <span>
                                 <span className="src/assets/tick.svg"></span>
                                 <span><span className="font-bold">Free & Easy</span> Returns*</span>
