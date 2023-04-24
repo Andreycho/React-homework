@@ -70,6 +70,7 @@ const ProductList = () => {
             key={product.id}
             title={product.title}
             price={product.price}
+            rating={product.rating}
             url={product.images[0]}
           />
         ))}
