@@ -23,7 +23,7 @@ function Rating({ rating }) {
         <div className="flex">
             {stars}
         </div> 
-        <div>
+        <div className='text-lg'>
             {rating}
         </div>
     </div>;
